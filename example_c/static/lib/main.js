@@ -16,7 +16,7 @@ $(document).ready(function() {
         if (response.authResponse) {
           // user has auth'd your app and is logged into Facebook
           AJ.html({ selector:'#main', template:'authenticated' });
-          AJ.emit({ event:'load', type:'client', params:response.authResponse });
+          AJ.emit({ event:'load', target:'client', params:response.authResponse });
         } else {
           AJ.html({ selector:'#main', template:'login_required' });
           $('#login').click(function() {
@@ -33,7 +33,7 @@ $(document).ready(function() {
       ctx.exec([
         { cmd:'html', params:{ data:result, template:'hello', selector:'#message' }},
         { cmd:'html', params:{ template:'loading_friends', selector:'#contents' }},
-        { cmd:'emit', params:{ event:'friends', type:'client' }},
+        { cmd:'emit', params:{ event:'friends', target:'client' }},
       ]);
     });
   }).on('friends', function(ctx) {
@@ -43,9 +43,9 @@ $(document).ready(function() {
         { cmd:'html', params:{ template:'friends', selector:'#contents' }},
         { cmd:'html', params:{ data:result.data, template:'friend', selector:'#friends',
           bindings:[
-            { selector:'.friend', event:'click', actions:[
+            { selector:'.friend', on:'click', actions:[
               { cmd:'hide', params: { selector:'#contents' } },
-              { cmd:'emit', params: { event:'friend_selected', type:'client' } }
+              { cmd:'emit', params: { event:'friend_selected', target:'client' } }
             ]}
           ]}
         }

@@ -36,9 +36,9 @@ Description of various behaviors in DBI is also possible. For example,
         { cmd:'html', params:{ template:'friends', selector:'#contents' }}, // (1)
         { cmd:'html', params:{ data:result.data, template:'friend', selector:'#friends', // (2)
           bindings:[
-            { selector:'.friend', event:'click', actions:[ // (3)
+            { selector:'.friend', on:'click', actions:[ // (3)
               { cmd:'hide', params: { selector:'#contents' } }, // (4)
-              { cmd:'emit', params: { event:'friend_selected', type:'client' } } // (5)
+              { cmd:'emit', params: { event:'friend_selected', target:'client' } } // (5)
             ]}
           ]}
         }
