@@ -19,7 +19,7 @@ For example, the following code (which runs either on the client side or the ser
       ctx.exec({ cmd:'html', params:{ data:result, template:'hello', selector:'#message' }});
     });
 
-If the 'data' is { name:"John Smith" } and the template 'hello' is "\<p>Hello, $(.name)!\</p>", this instruction will generate
+If the 'data' is { name:"John Smith" } and the template 'hello' is "\<p>Hello, {{name}}!\</p>", this instruction will generate
 
     "\<p\>Hello, John Smith!\</p\>"
 
