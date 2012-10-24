@@ -10,17 +10,19 @@ $(document).ready(function() {
       xfbml      : true  // parse XFBML tags on this page?
     });
 
-    AJ.html({ selector:'#main', template:'initializing' });
+    AJ.context().exec({ cmd:'html', params:{ selector:'#main', template:'initializing' }});
 
     FB.Event.subscribe('auth.statusChange', function(response) {
         if (response.authResponse) {
           // user has auth'd your app and is logged into Facebook
-          AJ.html({ selector:'#main', template:'authenticated' });
-          AJ.emit({ event:'load', target:'client', params:response.authResponse });
+          AJ.context().exec([
+            { cmd:'html', params:{ selector:'#main', template:'authenticated' }},
+            { cmd:'emit', params:{ event:'load', target:'client', params:response.authResponse }}
+          ]);
         } else {
-          AJ.html({ selector:'#main', template:'login_required' });
+          AJ.context().exec({ cmd:'html', params:{ selector:'#main', template:'login_required' }});
           $('#login').click(function() {
-            AJ.html({ selector:'#main', template:'authenticating' });
+            AJ.context().exec({ cmd:'html', params:{ selector:'#main', template:'authenticating' }});
             FB.login();
           });
         }

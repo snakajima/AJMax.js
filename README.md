@@ -62,8 +62,8 @@ Because of this symmetry (the data binding instruction are portable across serve
 2. Along with the REST API (Model), all the controlling logics (Controller) are described on the server side, and the client simply interprets those instructions sent from the server side, and route appropriate events (such as 'click' events) back to the server.
 3. Controlling logics that involves data access are written on the server side, but the rest of controlling logics (mostly pure UI behaviors) are written on the client side. 
 
-Template
---------
+Template Mechanism
+------------------
 
 Template is a JSON object, which is a dictionary of HTML-templates. For example, 
 
@@ -80,6 +80,11 @@ The template machanism has only three rules.
 2. {{{foo}}} will be replaced by the value of property "foo" (unescaped)
 3. {{$index}} will be replaced by the index of the row (when the data object is an array)
 
-When a template is applied to an array of objects, the template will be applied to each object in the array and the results wil be concatinated. 
+When a template is applied to an array of objects, the template will be applied to each object in the array and the results wil be concatinated.
+
+The templates needs to be specified by calling AJ.setTemplate() method on the client side (this may change in the later release). 
+
+
+ 
 
 

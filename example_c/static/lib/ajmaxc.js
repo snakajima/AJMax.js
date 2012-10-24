@@ -65,7 +65,7 @@ var AJ = (function() {
   }
   
   function _process_action(action, id) {
-    if (action.cmd && typeof AJ[action.cmd] == 'function') {
+    if (action.cmd && typeof _dispatch[action.cmd] == 'function') {
       if (id) {
         if (action.params.params) {
           action.params.params.id = id;
@@ -73,7 +73,7 @@ var AJ = (function() {
           action.params.params = { id: id };
         }
       }
-      AJ[action.cmd](action.params);
+      _dispatch[action.cmd](action.params);
     }
   }
   
@@ -98,11 +98,8 @@ var AJ = (function() {
   Context.prototype.deferred = function() {
     // no-op on the client side
   };
-
-  return {
-    setTemplate: function(template) {
-      _template = template;
-    },
+  
+  var _dispatch = {
     html: function(params) {
       var $element = $(params.selector);
       $element.html(_bind_data(params));
@@ -139,11 +136,19 @@ var AJ = (function() {
     },
     hide: function(params) {
       $(params.selector).hide();
+    }
+  };
+
+  return {
+    setTemplate: function(template) {
+      _template = template;
+    },
+    context: function(params) {
+      return new Context(params);
     },
     on: function(event, callback) {
       _listners[event] = callback;
       return this;
-    },
-    _last_item_for_ie6_: '' // no trailing comma
+    }
   }; // end of "return"
 })(); // end of "var ajmax="
