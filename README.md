@@ -21,7 +21,7 @@ For example, the following code (which runs either on the client side or the ser
 
 If the 'data' is { name:"John Smith" } and the template 'hello' is "\<p>Hello, {{name}}!\</p>", this instruction will generate
 
-    "\<p\>Hello, John Smith!\</p\>"
+    "<p>Hello, John Smith!</p>"
 
 and set it as the innerHTML of the DOM element specified by '#message'. It effectively performs
 
@@ -65,4 +65,21 @@ Because of this symmetry (the data binding instruction are portable across serve
 Template
 --------
 
-git
+Template is a JSON object, which is a dictionary of HTML-templates. For example, 
+
+    {
+      morning: "<p>Good morning, {{name}}!</p>",
+      evening: "<p>Good evening, {{name}}!</p>"
+    }
+    
+has two templates, "morning" and "evening". 
+
+The template machanism has only three rules.
+
+1. {{foo}} will be replaced by the value of property "foo" (escaped)
+2. {{{foo}}} will be replaced by the value of property "foo" (unescaped)
+3. {{$index}} will be replaced by the index of the row (when the data object is an array)
+
+When a template is applied to an array of objects, the template will be applied to each object in the array and the results wil be concatinated. 
+
+
