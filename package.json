@@ -1,0 +1,24 @@
+{
+  "name": "ajmax",
+  "version": "0.0.1",
+  "description": "simple micro-framework for single-page AJAX apps",
+  "main": "./lib/ajmax.js",
+  "dependencies": {
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "test"
+  },
+  "repository": "",
+  "keywords": [
+    "ajax",
+    "mvc",
+    "template",
+    "framework",
+    "server",
+    "event-driven",
+    "jquery"
+  ],
+  "author": "Satoshi Nakajima <satoshi.nakajima@gmail.com>",
+  "license": "MIT"
+}
