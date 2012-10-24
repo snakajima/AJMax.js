@@ -47,11 +47,11 @@ It is possible describe various controll behaviors in DBI instructions. For exam
 
 will fetch the list of Facebook friends, then perform following actions.
 
-(1) insert the HTML template named 'friends' at the DOM element specified by the selector '#contents' (no data binding)
-(2) bind the list of frneds (result.data) with the HTML template named 'friend', and insert it at the DOM element specified by the selector '#friends'
-(3) then, find all the DOM element specified by the selector '.friends', and bind the 'click' event with (4) and (5)
-(4) hide the DOM element specified by the selector '#contents'
-(5) emit the event 'friend_selected' to the client-side of JavaScript
+1. insert the HTML template named 'friends' at the DOM element specified by the selector '#contents' (no data binding)
+2. bind the list of frneds (result.data) with the HTML template named 'friend', and insert it at the DOM element specified by the selector '#friends'
+3. then, find all the DOM element specified by the selector '.friends', and bind the 'click' event with (4) and (5)
+4. hide the DOM element specified by the selector '#contents'
+5. emit the event 'friend_selected' to the client-side of JavaScript
 
 Flexibility
 -----------
