@@ -103,7 +103,7 @@ AJ.on('load', function(ctx) {
       { cmd:'html', params:{ template:'friends', selector:'#contents' }},
       { cmd:'html', params:{ data:result.data, template:'friend', selector:'#friends',
         bindings:[
-          { selector:'.friend', actions:[
+          { selector:'.friend', event:'click', actions:[
             { cmd:'hide', params: { selector:'#contents' } },
             { cmd:'emit', params: { event:'friend_selected' } }
           ]}
