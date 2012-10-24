@@ -13,20 +13,20 @@ AJ.setTemplate({
   loading_friends:
     "<p>fetching friend list...</p>",
 
-  morning: "Good morning, $(.name)!",
-  evening: "Good evening, $(.name)!",
-  hello: "Hello, $(.name)!",
+  morning: "Good morning, {{name}}!",
+  evening: "Good evening, {{name}}!",
+  hello: "Hello, {{name}}!",
 
   friends:
     "<ul id='friends'></ul>",
   friend:
     "<li>\
-       <img style='width:24px' src='http://graph.facebook.com/$(.id)/picture'>\
-       <a class='friend' id='$(.id)' href='#'> \
-       <span style='padding:2px'>$(.name)</span> \
+       <img style='width:24px' src='http://graph.facebook.com/{{id}}/picture'>\
+       <a class='friend' id='{{id}}' href='#'> \
+       <span style='padding:2px'>{{name}}</span> \
        </a>\
     </li>",
 
-  test_alert: "Selected $(.name)",
+  test_alert: "Selected {{name}}",
   _last_item_for_ie6_: "" // no trailing comma
 });

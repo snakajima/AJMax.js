@@ -36,9 +36,9 @@ var AJ = (function() {
     if (!_compiled[key]) {
       var _script =  '"' + _template[key].replace(/\"/g, "'")
                         .replace(/[\r\n]/g, " ")
-                        .replace(/\$\(index\)/g, '"+index+"')
-                        .replace(/\$\(\.([a-z0-9_\.]*)\)/gi, '"+_escape(""+row.$1)+"')
-                        .replace(/\$\(\_([a-z0-9_\.]*)\)/gi, '"+row.$1+"')
+                        .replace(/{{$index}}/g, '"+index+"')
+                        .replace(/{{{([a-z0-9_\.]*)}}}/gi, '"+row.$1+"')
+                        .replace(/{{([a-z0-9_\.]*)}}/gi, '"+_escape(""+row.$1)+"')
                         +'"';
       eval("_compiled[key] = function(row, index) { return (" + _script + "); };");
     }
