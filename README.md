@@ -6,14 +6,14 @@ AJMax is a micro-framework, which simplifies the development of one-page Ajax ap
 It has a light-weight HTML-template engine, which performs data-binding on the client side very efficiently.
 
 It effectively enforces MVC architecture, where Model is JSON-based REST API, View is HTML templates,
-and Controller is written in JavaScript and/or JSON, running either on the client side or the server side.
+and Controller is written in JavaScript and/or JSON, running either on the client side or the server side (or both).
 
-It allows developers to describe data-binding instructions (and controll behaviors) in JSON (instead of JavaScript), which simplifies the development, and also makes it possible to describe those instructions on the server side and send them to the client to be executed.
+It allows developers to describe data-binding instructions (and controll behaviors) in JSON instead of JavaScriptz, which simplifies the development, and also makes it possible to describe those instructions on the server side and send them to the client to be executed (remote data-binding and DOM manipulation).
 
 Data-binding Instructions (DBI)
 -------------------------------
 
-For example, the following code (which runs either on the client side and the server side) fetches the JSON data that describes 'me' using Facebook Graph API, and binds it with the HTML template named 'hello', and inserts the generated HTML at the location specified by the JQuery selector '#message'.
+For example, the following code (which runs either on the client side or the server side) fetches the JSON data that describes 'me' using Facebook Graph API, and binds it with the HTML template named 'hello', and inserts the generated HTML at the location specified by the JQuery selector '#message'.
 
     FB.api('/me', { fields:'name' }, function(data) {
       ctx.exec({ cmd:'html', params:{ data:result, template:'hello', selector:'#message' }});
@@ -29,7 +29,7 @@ and set it as the innerHTML of the DOM element specified by '#message'. It effec
 
 Since this instruction is written in JSON (not in JavaScript), it allows the server to send it to the client and modify the DOM remotely (or even describes the behaviors remotely).
 
-It is also possible describe various behaviors in DBI instructions. For example, 
+Description of various behaviors in DBI is also possible. For example, 
 
     FB.api('/me/friends', function(result) {
       ctx.exec([
