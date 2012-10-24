@@ -61,3 +61,8 @@ Because of this symmetry (the data binding instruction are portable across serve
 1. Server is a pure REST API server (Model), and all controlloing logics (Controller) are written on the client side. 
 2. Along with the REST API (Model), all the controlling logics (Controller) are described on the server side, and the client simply interprets those instructions sent from the server side, and route appropriate events (such as 'click' events) back to the server.
 3. Controlling logics that involves data access are written on the server side, but the rest of controlling logics (mostly pure UI behaviors) are written on the client side. 
+
+Template
+--------
+
+git
