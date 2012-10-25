@@ -8,7 +8,7 @@ It has a light-weight HTML-template engine, which performs data-binding on the c
 It effectively enforces MVC architecture, where Model is JSON-based REST API, View is HTML templates,
 and Controller is written in JavaScript and/or JSON, running either on the client side or the server side (or both).
 
-It allows developers to describe data-binding instructions (DBI) and UI-binding instructions (UBI) in JSON instead of JavaScript, which simplifies the development, and also makes it possible to describe those instructions on the server side and send them to the client to be executed (remote data-binding, DOM manipulation and UI-binding).
+It allows developers to describe data-binding instructions (DBI) and UI-binding instructions (UBI) in JSON instead of JavaScript, which simplifies the development, and also makes it possible to describe those instructions on the server side and send them to the client to be executed.
 
 In other words, AJMax finally enables the "code-on-demand" (the holy grail of REST defined by Roy T. Fielding. http://www.ics.uci.edu/~fielding/pubs/dissertation/rest_arch_style.htm#sec_5_1_7) without sending raw JavaScript code from the server to the client.  
 
@@ -17,11 +17,11 @@ Data-binding Instructions (DBI)
 
 For example, the following code (which runs either on the client side or the server side) fetches the JSON data that describes 'me' using Facebook Graph API, and binds it with the HTML template named 'hello', and inserts the generated HTML at the location specified by the JQuery selector '#message'.
 
-    FB.api('/me', { fields:'name' }, function(data) {
+    FB.api('/me', { fields:'name' }, function(result) {
       ctx.exec({ cmd:'html', params:{ data:result, template:'hello', selector:'#message' }});
     });
 
-If the 'data' is { name:"John Smith" } and the template 'hello' is "\<p>Hello, {{name}}!\</p>", this instruction will generate
+If the 'result' is { name:"John Smith" } and the template 'hello' is "\<p>Hello, {{name}}!\</p>", this instruction will generate
 
     "<p>Hello, John Smith!</p>"
 
@@ -29,9 +29,9 @@ and set it as the innerHTML of the DOM element specified by '#message'. It effec
 
     $('#message').html("<p>Hello, John Smith!</p>");
 
-Since this instruction is written in JSON (not in JavaScript), it allows the server to send it to the client and modify the DOM remotely (or even describes the behaviors remotely).
+Since this instruction is written in JSON (not in JavaScript), it allows the server to send it to the client and modify the DOM remotely.
 
-It is also possible to describe the UI behavior by binding DBIs to UI-event. For example, 
+It is also possible to describe the UI behaviors by binding DBIs to UI-event. For example, 
 
     FB.api('/me/friends', function(result) {
       ctx.exec([
@@ -86,8 +86,8 @@ When a template is applied to an array of objects, the template will be applied 
 
 The template needs to be loaded by executing DBI command 'template'.
 
-API (client side)
------------------
+API (client side, ajmaxc.js)
+----------------------------
 
 When ajmaxc.js is loaded, it create a AJMax object and assign it to the global variable AJ. It has two methods:
 
@@ -99,8 +99,8 @@ Context object has one method and a property.
 1. exec(dbi) - execute the data-bind istruction(s)
 2. params - parameters to the event, which is specified when the event has emitted via DBI
 
-API (server side)
------------------
+API (server side, ajmax.js)
+---------------------------
 
 The node module ajmax has one exported method
 
@@ -149,11 +149,10 @@ The meaning of 'params' property depends on the command.
 UBI syntax
 ----------
 
-UI-Binding instructions (optional property of DBI 'html' command) allows the application to bind DBI instructions to UI events. It is an array of UI-binding instructions (UBI), each of which has following properties.
+A UI-Binding instruction (optional property of DBI 'html' command) bind DBI instructions to UI events, and has following properties.
 
     'selector': specifies the JQuery selector (required, scope is the target element of the parent 'html' command)
     'on': specifies the event (optional, the default is 'click')
     'actions' : specifies DBIs to be executed when the specified event happens (required)
     
-
 
