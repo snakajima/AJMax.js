@@ -1,14 +1,14 @@
 AJMax
 =====
 
-AJMax is a micro-framework, which simplifies the development of one-page Ajax applications with node.js.
+AJMax is a micro MVC framework, which simplifies the development of one-page Ajax/HTML5 applications with node.js.
 
 It has a light-weight HTML-template engine, which performs data-binding on the client side very efficiently.
 
 It effectively enforces MVC architecture, where Model is JSON-based REST API, View is HTML templates,
 and Controller is written in JavaScript and/or JSON, running either on the client side or the server side (or both).
 
-It allows developers to describe data-binding instructions (and controll behaviors) in JSON instead of JavaScriptz, which simplifies the development, and also makes it possible to describe those instructions on the server side and send them to the client to be executed (remote data-binding and DOM manipulation).
+It allows developers to describe data-binding instructions (DBI) and UI-binding instructions (UBI) in JSON instead of JavaScriptz, which simplifies the development, and also makes it possible to describe those instructions on the server side and send them to the client to be executed (remote data-binding, DOM manipulation and UI-binding).
 
 Data-binding Instructions (DBI)
 -------------------------------
@@ -140,9 +140,12 @@ The meaning of 'params' property depends on the command.
       'data': data object to be bound with the specified template (optional)
       'template': the name of template (required)
 
-UI-Binding instructions (optional property of 'html' command) allows the application to bind DBI instructions to UI events. It is an array of UI-binding instructions (UBI). UBI has following properties.
+UBI syntax
+----------
 
-    'selector': specifies the JQuery selector (required)
+UI-Binding instructions (optional property of DBI 'html' command) allows the application to bind DBI instructions to UI events. It is an array of UI-binding instructions (UBI), each of which has following properties.
+
+    'selector': specifies the JQuery selector (required, scope is the target element of the parent 'html' command)
     'on': specifies the event (optional, the default is 'click')
     'actions' : specifies DBIs to be executed when the specified event happens (required)
     
