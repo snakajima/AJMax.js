@@ -140,5 +140,11 @@ The meaning of 'params' property depends on the command.
       'data': data object to be bound with the specified template (optional)
       'template': the name of template (required)
 
+UI-Binding instructions (optional property of 'html' command) allows the application to bind DBI instructions to UI events. It is an array of UI-binding instructions (UBI). UBI has following properties.
+
+    'selector': specifies the JQuery selector (required)
+    'on': specifies the event (optional, the default is 'click')
+    'actions' : specifies DBIs to be executed when the specified event happens (required)
+    
 
 
