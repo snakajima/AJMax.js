@@ -154,9 +154,6 @@ var AJ = (function() {
   };
 
   return {
-    setTemplate: function(template) {
-      _template = template;
-    },
     context: function(params) {
       return new Context(params);
     },

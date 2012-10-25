@@ -8,7 +8,7 @@ It has a light-weight HTML-template engine, which performs data-binding on the c
 It effectively enforces MVC architecture, where Model is JSON-based REST API, View is HTML templates,
 and Controller is written in JavaScript and/or JSON, running either on the client side or the server side (or both).
 
-It allows developers to describe data-binding instructions (DBI) and UI-binding instructions (UBI) in JSON instead of JavaScriptz, which simplifies the development, and also makes it possible to describe those instructions on the server side and send them to the client to be executed (remote data-binding, DOM manipulation and UI-binding).
+It allows developers to describe data-binding instructions (DBI) and UI-binding instructions (UBI) in JSON instead of JavaScript, which simplifies the development, and also makes it possible to describe those instructions on the server side and send them to the client to be executed (remote data-binding, DOM manipulation and UI-binding).
 
 In other words, AJMax finally enables the "code-on-demand" (the holy grail of REST defined by Roy T. Fielding. http://www.ics.uci.edu/~fielding/pubs/dissertation/rest_arch_style.htm#sec_5_1_7) without sending raw JavaScript code from the server to the client.  
 
@@ -31,7 +31,7 @@ and set it as the innerHTML of the DOM element specified by '#message'. It effec
 
 Since this instruction is written in JSON (not in JavaScript), it allows the server to send it to the client and modify the DOM remotely (or even describes the behaviors remotely).
 
-Description of various behaviors in DBI is also possible. For example, 
+It is also possible to describe the UI behavior by binding DBIs to UI-event. For example, 
 
     FB.api('/me/friends', function(result) {
       ctx.exec([
@@ -89,7 +89,7 @@ The template needs to be loaded by executing DBI command 'template'.
 API (client side)
 -----------------
 
-When ajmaxc.js is loaded, it create a AJMax object on the global variable AJ. It has only three methods:
+When ajmaxc.js is loaded, it create a AJMax object and assign it to the global variable AJ. It has two methods:
 
 1. on(event, callback) - specify the event listner (callback function receives a Context object as the only parameter)
 2. context() - create a new Context object
@@ -97,7 +97,7 @@ When ajmaxc.js is loaded, it create a AJMax object on the global variable AJ. It
 Context object has one method and a property. 
 
 1. exec(dbi) - execute the data-bind istruction(s)
-2. params - parameters to the event
+2. params - parameters to the event, which is specified when the event has emitted via DBI
 
 API (server side)
 -----------------
@@ -106,11 +106,11 @@ The node module ajmax has one exported method
 
 1. createServer() - it creates a Server object and returns it
 
-The Server object has only one method
+The Server object has one method
 
-1. serve(request, response) - checks if the request is a AJMax event and emits it if necessary and return true. Otherwise it returns false. 
+1. serve(request, response) - checks if the request is a AJMax event and emits an event if it is and return true. Otherwise, it returns false.
 
-The Server object is an EventEmitter and emit events (application specific). 
+The Server object is an EventEmitter and emit events. Events are all application specific.
 
 DBI syntax
 ----------
