@@ -10,6 +10,8 @@ and Controller is written in JavaScript and/or JSON, running either on the clien
 
 It allows developers to describe data-binding instructions (DBI) and UI-binding instructions (UBI) in JSON instead of JavaScriptz, which simplifies the development, and also makes it possible to describe those instructions on the server side and send them to the client to be executed (remote data-binding, DOM manipulation and UI-binding).
 
+In other words, AJMax finally enables the "code-on-demand" (the holy grail of REST defined by Roy T. Fielding. http://www.ics.uci.edu/~fielding/pubs/dissertation/rest_arch_style.htm#sec_5_1_7) without sending raw JavaScript code from the server to the client.  
+
 Data-binding Instructions (DBI)
 -------------------------------
 
