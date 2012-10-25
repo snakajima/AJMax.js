@@ -129,8 +129,10 @@ The meaning of 'params' property depends on the command.
       'selector': jQuery selector (required)
       'bindings': UI binding instructions (optional)
       
-    'template' -- load a template from the specified URL
-      'url': the URL to load the template from
+    'template' -- load a template set from the specified URL and merge them into the current set
+      'url': the URL to load the template from (required)
+      'event': the event name needs to be emitted after loading the template (required)
+      'target': 'client' or 'server' (optional, the default is 'server')
 
     'emit' -- emit an event
       'event': name of the event (required)
