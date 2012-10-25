@@ -111,7 +111,7 @@ var AJ = (function() {
     template: function(params) {
       $.getJSON(params.url, {}, function(data) {
         $.extend(_template, data);
-        params.callback();
+        _dispatch.emit(params);
       });
     },
     html: function(params) {

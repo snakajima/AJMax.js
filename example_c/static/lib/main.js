@@ -57,9 +57,7 @@ $(document).ready(function() {
     ctx.exec(
       { cmd:'open', params:{ url:'http://www.facebook.com/' +  ctx.params.id }}
     );
-  });
-
-  AJ.context().exec({ cmd:'template', params: { url:'/lib/templates.js', callback:function() {
+  }).on('load_facebook', function(ctx) {
     (function(d) {
         var js, id = 'facebook-jssdk', ref = d.getElementsByTagName('script')[0];
         if (d.getElementById(id)) {return;}
@@ -67,5 +65,7 @@ $(document).ready(function() {
         js.src = "//connect.facebook.net/en_US/all.js";
         ref.parentNode.insertBefore(js, ref);
     }(document));
-  }}});
+  });
+
+  AJ.context().exec({ cmd:'template', params: { url:'/lib/templates.js', event:'load_facebook', target:'client' }});
 });

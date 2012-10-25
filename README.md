@@ -84,16 +84,15 @@ The template machanism has only three rules.
 
 When a template is applied to an array of objects, the template will be applied to each object in the array and the results wil be concatinated.
 
-The templates needs to be specified by calling AJ.setTemplate() method on the client side (this may change in the later release). 
+The template needs to be loaded by executing DBI command 'template'.
 
 API (client side)
 -----------------
 
 When ajmaxc.js is loaded, it create a AJMax object on the global variable AJ. It has only three methods:
 
-1. setTemplate(object) - specifies the set of templates
-2. on(event, callback) - specify the event listner (callback function receives a Context object as the only parameter)
-3. context() - create a new Context object
+1. on(event, callback) - specify the event listner (callback function receives a Context object as the only parameter)
+2. context() - create a new Context object
 
 Context object has one method and a property. 
 
@@ -129,6 +128,9 @@ The meaning of 'params' property depends on the command.
       'template': the name of template (required)
       'selector': jQuery selector (required)
       'bindings': UI binding instructions (optional)
+      
+    'template' -- load a template from the specified URL
+      'url': the URL to load the template from
 
     'emit' -- emit an event
       'event': name of the event (required)
