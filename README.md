@@ -84,7 +84,61 @@ When a template is applied to an array of objects, the template will be applied 
 
 The templates needs to be specified by calling AJ.setTemplate() method on the client side (this may change in the later release). 
 
+API (client side)
+-----------------
 
- 
+When ajmaxc.js is loaded, it create a AJMax object on the global variable AJ. It has only three methods:
+
+1. setTemplate(object) - specifies the set of templates
+2. on(event, callback) - specify the event listner (callback function receives a Context object as the only parameter)
+3. context() - create a new Context object
+
+Context object has one method and a property. 
+
+1. exec(dbi) - execute the data-bind istruction(s)
+2. params - parameters to the event
+
+API (server side)
+-----------------
+
+The node module ajmax has one exported method
+
+1. createServer() - it creates a Server object and returns it
+
+The Server object has only one method
+
+1. serve(request, response) - checks if the request is a AJMax event and emits it if necessary and return true. Otherwise it returns false. 
+
+The Server object is an EventEmitter and emit events (application specific). 
+
+DBI syntax
+----------
+
+DBI is either an DBI object or an array of DBI objects.
+
+DBI object must have 'cmd' property and 'params' property.
+
+The value of 'cmd' property (command) must be one of 'html', 'emit', 'hide', 'show', 'alert' (this is not extensible at this point, but may change later). 
+
+The meaning of 'params' property depends on the command.
+
+    'html' -- data-bind the data object with the specified view template and insert it at the specified DOM element
+      'data': data object to be bound with the specified template (optional)
+      'template': the name of template (required)
+      'selector': jQuery selector (required)
+      'bindings': UI binding instructions (optional)
+
+    'emit' -- emit an event
+      'event': name of the event (required)
+      'target': 'client' or 'server' (optional, the default is 'server')
+      'params': event parameters (optional)
+      
+    'show', 'hide' -- show/hide the specified DOM element(s)
+      'selector': jQuery selector (required)
+      
+    'alert' - display the browser alert
+      'data': data object to be bound with the specified template (optional)
+      'template': the name of template (required)
+
 
 
