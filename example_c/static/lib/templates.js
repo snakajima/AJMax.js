@@ -1,4 +1,4 @@
-AJ.setTemplate({
+{
   "initializing":
     "<h1>Initializing...</h1>",
   "login_required": [
@@ -26,4 +26,4 @@ AJ.setTemplate({
     "  <span style='padding:2px'>{{name}}</span>",
     "  </a>",
     "</li>"]
-});
+}

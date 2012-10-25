@@ -57,13 +57,15 @@ $(document).ready(function() {
     ctx.exec(
       { cmd:'open', params:{ url:'http://www.facebook.com/' +  ctx.params.id }}
     );
-});
-  
-  (function(d) {
-      var js, id = 'facebook-jssdk', ref = d.getElementsByTagName('script')[0];
-      if (d.getElementById(id)) {return;}
-      js = d.createElement('script'); js.id = id; js.async = true;
-      js.src = "//connect.facebook.net/en_US/all.js";
-      ref.parentNode.insertBefore(js, ref);
-  }(document));
+  });
+
+  AJ.context().exec({ cmd:'template', params: { url:'/lib/templates.js', callback:function() {
+    (function(d) {
+        var js, id = 'facebook-jssdk', ref = d.getElementsByTagName('script')[0];
+        if (d.getElementById(id)) {return;}
+        js = d.createElement('script'); js.id = id; js.async = true;
+        js.src = "//connect.facebook.net/en_US/all.js";
+        ref.parentNode.insertBefore(js, ref);
+    }(document));
+  }}});
 });
