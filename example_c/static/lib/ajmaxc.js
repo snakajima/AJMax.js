@@ -34,7 +34,11 @@ var AJ = (function() {
   
   function _get_template_function(key) {
     if (!_compiled[key]) {
-      var _script =  '"' + _template[key].replace(/\"/g, "'")
+      var t = _template[key];
+      if ($.isArray(t)) {
+        t = t.join('');
+      }
+      var _script =  '"' + t.replace(/\"/g, "'")
                         .replace(/[\r\n]/g, " ")
                         .replace(/{{$index}}/g, '"+index+"')
                         .replace(/{{{([a-z0-9_\.]*)}}}/gi, '"+row.$1+"')
@@ -49,6 +53,10 @@ var AJ = (function() {
     var ret = '';
     if (typeof params.data == 'undefined') {
       ret = _template[params.template];
+      if ($.isArray(ret)) {
+        ret = ret.join('');
+        _template[params.template] = ret;
+      }
     } else {
       var apply = _get_template_function(params.template);
       if ($.isArray(params.data)) {
