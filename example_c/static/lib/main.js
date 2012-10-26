@@ -29,6 +29,17 @@ $(document).ready(function() {
     });
   };
   
+  // Application specific commands
+  AJ.extend({
+    show: function(params) {
+      $(params.selector).show();
+    },
+    hide: function(params) {
+      $(params.selector).hide();
+    }
+  });
+  
+  // Application specific events
   AJ.on('load', function(ctx) {
     ctx.deferred();
     FB.api('/me', function(result) {

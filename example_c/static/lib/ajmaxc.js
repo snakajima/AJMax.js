@@ -23,6 +23,7 @@ var AJ = (function() {
   var _template = {}; // templates
   var _compiled = {}; // compiled templates (cache)
   var _listners = {};
+  var _extension = {};
 
   function _escape(text) {
     return text.replace(/&/g, '&amp;')
@@ -73,7 +74,7 @@ var AJ = (function() {
   }
   
   function _process_action(action, id) {
-    if (action.cmd && typeof _dispatch[action.cmd] == 'function') {
+    if (action.cmd) {
       if (id) {
         if (action.params.params) {
           action.params.params.id = id;
@@ -81,7 +82,11 @@ var AJ = (function() {
           action.params.params = { id: id };
         }
       }
-      _dispatch[action.cmd](action.params);
+      if (typeof _dispatch[action.cmd] == 'function') {
+        _dispatch[action.cmd](action.params);
+      } else if (typeof _extension[action.cmd] == 'function') {
+        _extension[action.cmd](action.params);
+      }
     }
   }
   
@@ -144,12 +149,6 @@ var AJ = (function() {
     },
     open: function(params) {
       window.location.href = params.url;
-    },
-    show: function(params) {
-      $(params.selector).show();
-    },
-    hide: function(params) {
-      $(params.selector).hide();
     }
   };
 
@@ -160,6 +159,9 @@ var AJ = (function() {
     on: function(event, callback) {
       _listners[event] = callback;
       return this;
+    },
+    extend: function(extension) {
+      $.extend(_extension, extension);
     }
   }; // end of "return"
 })(); // end of "var ajmax="

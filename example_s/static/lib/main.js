@@ -29,6 +29,17 @@ $(document).ready(function() {
     });
   };
   
+  // Application specific commands
+  AJ.extend({
+    show: function(params) {
+      $(params.selector).show();
+    },
+    hide: function(params) {
+      $(params.selector).hide();
+    }
+  });
+  
+  // Application specific events
   AJ.on('load_facebook', function(ctx) {
     (function(d) {
         var js, id = 'facebook-jssdk', ref = d.getElementsByTagName('script')[0];

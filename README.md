@@ -52,8 +52,8 @@ will fetch the list of Facebook friends of the current user, then perform follow
 1. insert the HTML template named 'friends' at the DOM element specified by the selector '#contents' (no data binding)
 2. bind the list of friends (result.data) with the HTML template named 'friend', and insert it at the DOM element specified by the selector '#friends'
 3. then, find all the DOM element specified by the selector '.friends', and bind the 'click' event with actions described in (4) and (5)
-4. hide the DOM element specified by the selector '#contents' (executed as the result of 'click' event)
-5. emit the event 'friend_selected' to the client-side of JavaScript (execute as the result of 'click' event)
+4. hide the DOM element specified by the selector '#contents' (extended command)
+5. emit the event 'friend_selected' to the client-side of JavaScript
 
 Flexibility
 -----------
@@ -93,11 +93,26 @@ When ajmaxc.js is loaded, it create a AJMax object and assign it to the global v
 
 1. on(event, callback) - specify the event listner (callback function receives a Context object as the only parameter)
 2. context() - create a new Context object
+3. extend(extension) - add application specific command extensions (to be executed by UBI)
 
 Context object has one method and a property. 
 
 1. exec(dbi) - execute the data-bind istruction(s)
 2. params - parameters to the event, which is specified when the event has emitted via DBI
+
+Command Extension
+-----------------
+
+Command extension is a set of command-name, function pairs. The example below adds 'show' and 'hide' commands.
+
+    AJ.extend({
+      show: function(params) {
+        $(params.selector).show();
+      },
+      hide: function(params) {
+        $(params.selector).hide();
+      }
+    });
 
 API (server side, ajmax.js)
 ---------------------------
@@ -119,7 +134,7 @@ DBI is either an DBI object or an array of DBI objects.
 
 DBI object must have 'cmd' property and 'params' property.
 
-The value of 'cmd' property (command) must be one of 'html', 'emit', 'hide', 'show', 'alert' (this is not extensible at this point, but may change later). 
+The value of 'cmd' property (command) must be one of 'html', 'template', 'emit', 'alert' or one of application specific commands specified in the command extension (specified by calling AJ.extend() method).
 
 The meaning of 'params' property depends on the command.
 
@@ -138,9 +153,6 @@ The meaning of 'params' property depends on the command.
       'event': name of the event (required)
       'target': 'client' or 'server' (optional, the default is 'server')
       'params': event parameters (optional)
-      
-    'show', 'hide' -- show/hide the specified DOM element(s)
-      'selector': jQuery selector (required)
       
     'alert' - display the browser alert
       'data': data object to be bound with the specified template (optional)
