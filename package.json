@@ -1,6 +1,6 @@
 {
   "name": "ajmax",
-  "version": "0.0.6",
+  "version": "0.0.8",
   "description": "micro MVC framework for single-page AJAX/html5 apps",
   "main": "./lib/ajmax.js",
   "dependencies": {
@@ -9,14 +9,17 @@
   "scripts": {
     "test": "test"
   },
-  "repository": "",
+  "repository": {
+    "type": "git",
+    "url": "http://github.com/snakajima/AJMax.js.git"
+  },
   "keywords": [
     "ajax",
     "mvc",
     "html5",
     "template",
     "framework",
-    "server",
+    "code-on-demand",
     "event-driven",
     "jquery"
   ],

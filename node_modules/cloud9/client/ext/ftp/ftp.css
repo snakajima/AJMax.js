@@ -1,0 +1,19 @@
+.console_command {
+    line-height: 150%;
+    color: #cbfaa9;
+}
+
+.console_response {
+    line-height: 150%;
+    color: #aaa;
+}
+
+.console_status {
+    line-height: 150%;
+    color: #fff;
+}
+
+.console_error {
+    line-height: 150%;
+    color: #f30;
+}
