@@ -2,7 +2,6 @@ AJMax
 =====
 
 
-
 AJMax is a micro MVC framework, which simplifies the development of one-page Ajax/HTML5 applications with node.js.
 
 It has a light-weight HTML-template engine, which performs data-binding on the client side very efficiently.
