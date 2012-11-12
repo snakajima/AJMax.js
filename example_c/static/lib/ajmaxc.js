@@ -19,6 +19,8 @@
 // OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE
 // USE OR OTHER DEALINGS IN THE SOFTWARE.
 
+'use strict';
+
 var AJ = (function() {
   var _template = {}; // templates
   var _compiled = {}; // compiled templates (cache)
@@ -62,7 +64,7 @@ var AJ = (function() {
       var apply = _get_template_function(params.template);
       if ($.isArray(params.data)) {
         var rowset = [];
-        for (var i in params.data) {
+        for (var i=0, len=params.data.length; i < len; i++) {
           rowset.push(apply(params.data[i], i));
         }
         ret = rowset.join('');
@@ -73,15 +75,15 @@ var AJ = (function() {
     return ret;
   }
   
-  function _process_action(action, id) {
+  function _process_action(action, id, form) {
     if (action.cmd) {
-      if (id) {
-        if (action.params.params) {
-          action.params.params.id = id;
-        } else {
-          action.params.params = { id: id };
-        }
+      if (!action.params.params) {
+        action.params.params = {};
       }
+      if (id) { // Note: this if statement is required
+        action.params.params.id = id;
+      }
+      $.extend(action.params.params, form);
       if (typeof _dispatch[action.cmd] == 'function') {
         _dispatch[action.cmd](action.params);
       } else if (typeof _extension[action.cmd] == 'function') {
@@ -90,13 +92,13 @@ var AJ = (function() {
     }
   }
   
-  function _process_payload(payload, id) {
+  function _process_payload(payload, id, form) {
     if ($.isArray(payload)) {
-      for (i in payload) {
-        _process_action(payload[i], id);
+      for (var i=0, len=payload.length; i < len; i++) {
+        _process_action(payload[i], id, form);
       }
-    } else {
-      _process_action(payload, id);
+    } else if (payload) {
+      _process_action(payload, id, form);
     }
   };
     
@@ -119,16 +121,37 @@ var AJ = (function() {
         _dispatch.emit(params);
       });
     },
+    clear: function(params) {
+      var $element = $(params.selector);
+      $element.val('');
+    },
     html: function(params) {
       var $element = $(params.selector);
       $element.html(_bind_data(params));
       if (params.bindings) {
-        for (var i in params.bindings) {
-          var item = params.bindings[i];
-          $(item.selector, $element).bind(item.on ? item.on : 'click', function() {
-            _process_payload(item.actions, this.id);
-            return false;
-          });
+        for (var i=0, len=params.bindings.length; i<len; i++) {
+          (function() {
+            var item = params.bindings[i];
+            var event = item.on || 'click';
+            $(item.selector, $element).bind(event, function() {
+              var form = null;
+              if (item.on == 'submit') {
+                form = {};
+                var array = $(this).serializeArray();
+                for (var i=0, len=array.length; i<len; i++) {
+                  var entry = array[i];
+                  form[entry.name] = entry.value;
+                }
+              } else {
+                form = { value:$(this).val() };
+              }
+              
+              _process_payload(item.actions, this.id, form);
+              if (event == 'click' || event=='submit') {
+                return false;
+              }
+            });
+          })();
         }
       }
     },
