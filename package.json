@@ -1,6 +1,6 @@
 {
   "name": "ajmax",
-  "version": "0.0.11",
+  "version": "0.0.14",
   "description": "micro MVC framework for single-page AJAX/html5 apps",
   "main": "./lib/ajmax.js",
   "dependencies": {
